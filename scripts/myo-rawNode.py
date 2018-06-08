@@ -276,7 +276,7 @@ if __name__ == '__main__':
             rospy.sleep(0.5)
             pass
 
-    rospy.init_node('myo_raw')
+    rospy.init_node('myo_raw', anonymous=True)
 
     # Define Publishers
     imuPub = rospy.Publisher('~myo_imu', Imu, queue_size=1)
