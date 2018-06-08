@@ -374,7 +374,7 @@ if __name__ == '__main__':
 
     m.connect()
 
-    global vibrate_order
+    #global vibrate_order
     vibrate_order = 0
 
     def vibrate_cb(data):
