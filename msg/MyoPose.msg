@@ -1,4 +1,6 @@
 # Pose message
+
+Header header
 uint8 REST = 1
 uint8 FIST = 2
 uint8 WAVE_IN = 3

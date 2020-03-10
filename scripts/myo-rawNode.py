@@ -153,15 +153,17 @@ class MyoRaw(object):
                         print("Got exception: " + str(e) + "\nContinuing...")
                         return
 
+                h = Header()
+                h.stamp = rospy.Time.now()
                 if typ == 1:  # on arm
                     self.on_arm(MyoArm(arm=val, xdir=xdir))
                 elif typ == 2:  # removed from arm
                     self.on_arm(MyoArm(MyoArm.UNKNOWN, MyoArm.UNKNOWN))
                 elif typ == 3:  # pose
                     if val == 255:
-                        pose = MyoPose(0)
+                        pose = MyoPose(h, 0)
                     else:
-                        pose = MyoPose(val + 1)
+                        pose = MyoPose(h, val + 1)
                     self.on_pose(pose)
             else:
                 print('data with unknown attr: %02X %s' % (attr, p))
@@ -292,7 +294,9 @@ if __name__ == '__main__':
     def proc_emg(emg, moving):
         # create an array of ints for emg data
         # and moving data
-        emgPub.publish(EmgArray(emg, moving))
+        h = Header()
+        h.stamp = rospy.Time.now()
+        emgPub.publish(EmgArray(h, emg, moving))
 
     # Package the IMU data into an Imu message
     def proc_imu(quat1, acc, gyro):
